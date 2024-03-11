@@ -66,4 +66,10 @@ public class House {
             throw new ValidationException("Number of flats on floor should be a number");
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("\tИмя: %s\n\tГод постройки: %d\n\tКол-во квартир на этаже: %d", this.getName(), this.getYear(),
+                this.getNumberOfFlatsOnFloor());
+    }
 }

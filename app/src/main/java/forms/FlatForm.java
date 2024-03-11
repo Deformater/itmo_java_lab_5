@@ -7,106 +7,98 @@ import models.Flat;
 import models.Furnish;
 import models.Transport;
 
+import java.util.HashMap;
+
+import java.lang.reflect.Method;
+
+@SuppressWarnings("unused")
 public class FlatForm extends Form<Flat> {
 
+    HashMap<String, Method> handlers = new HashMap<>() {
+        {
+            try {
+                put("name", FlatForm.class.getDeclaredMethod("nameHandler"));
+                put("coords", FlatForm.class.getDeclaredMethod("coordsHandler"));
+                put("area", FlatForm.class.getDeclaredMethod("areaHandler"));
+                put("numberOfRooms", FlatForm.class.getDeclaredMethod("numberOfRoomsHandler"));
+                put("height", FlatForm.class.getDeclaredMethod("heightHandler"));
+                put("furnish", FlatForm.class.getDeclaredMethod("furnishHandler"));
+                put("transport", FlatForm.class.getDeclaredMethod("transportHandler"));
+                put("house", FlatForm.class.getDeclaredMethod("houseHandler"));
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    Flat flat;
+
     public FlatForm(ConsoleManager consoleManager) {
-        super(consoleManager);
+        super(consoleManager, "name");
+        super.handlers = this.handlers;
     }
 
     @Override
     public Flat run() {
-        Flat flat = new Flat();
-        while (true) {
-            try {
-                this.consoleManager.print("Введите имя:");
-                String name = this.consoleManager.read();
-                flat.setName(name);
-                break;
-            } catch (ValidationException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+        this.flat = new Flat();
+        super.runHandler(this);
+        return this.flat;
+    }
 
-        while (true) {
-            try {
-                CoordinatesForm coordinatesForm = new CoordinatesForm(consoleManager);
-                Coordinates coordinates = coordinatesForm.run();
-                flat.setCoordinates(coordinates);
-                break;
-            } catch (ValidationException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+    private void nameHandler() throws ValidationException {
+        this.consoleManager.print("Введите имя:");
+        String name = this.consoleManager.read();
+        this.flat.setName(name);
+        super.setStep("coords");
+    }
 
-        while (true) {
-            try {
-                this.consoleManager.print("Введите площадь:");
-                String name = this.consoleManager.read();
-                flat.setArea(name);
-                break;
-            } catch (ValidationException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+    private void coordsHandler() throws ValidationException {
+        this.consoleManager.print("Координаты (x, y):");
+        CoordinatesForm coordinatesForm = new CoordinatesForm(consoleManager);
+        Coordinates coordinates = coordinatesForm.run();
+        this.flat.setCoordinates(coordinates);
+        super.setStep("area");
+    }
 
-        while (true) {
-            try {
-                this.consoleManager.print("Введите количество комнат:");
-                String name = this.consoleManager.read();
-                flat.setNumberOfRooms(name);
-                break;
-            } catch (ValidationException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+    private void areaHandler() throws ValidationException {
+        this.consoleManager.print("Введите площадь:");
+        String area = this.consoleManager.read();
+        this.flat.setArea(area);
+        super.setStep("numberOfRooms");
+    }
 
-        while (true) {
-            try {
-                this.consoleManager.print("Введите высоту:");
-                String height = this.consoleManager.read();
-                flat.setHeight(height);
-                break;
-            } catch (ValidationException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+    private void numberOfRoomsHandler() throws ValidationException {
+        this.consoleManager.print("Введите количество комнат:");
+        String number = this.consoleManager.read();
+        this.flat.setNumberOfRooms(number);
+        super.setStep("height");
+    }
 
-        while (true) {
-            try {
-                this.consoleManager.print("Введите тип мебели:");
-                String name = this.consoleManager.read();
-                flat.setFurnish(Furnish.valueOf(name));
-                break;
-            } catch (IllegalArgumentException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+    private void heightHandler() throws ValidationException {
+        this.consoleManager.print("Введите высоту:");
+        String height = this.consoleManager.read();
+        this.flat.setHeight(height);
+        super.setStep("furnish");
+    }
 
-        while (true) {
-            try {
-                this.consoleManager.print("Введите тип транспорта:");
-                String transport = this.consoleManager.read();
-                flat.setTransport(Transport.valueOf(transport));
-                break;
-            } catch (ValidationException | IllegalArgumentException e) {
-                this.consoleManager.printError(e.getMessage());
-                continue;
-            }
-        }
+    private void furnishHandler() throws ValidationException {
+        this.consoleManager.print("Введите тип мебели:");
+        String furnishType = this.consoleManager.read();
+        this.flat.setFurnish(Furnish.valueOf(furnishType));
+        super.setStep("transport");
+    }
 
-        while (true) {
-            HouseForm houseForm = new HouseForm(consoleManager);
-            flat.setHouse(houseForm.run());
-            break;
-        }
+    private void transportHandler() throws ValidationException {
+        this.consoleManager.print("Введите тип транспорта:");
+        String transport = this.consoleManager.read();
+        this.flat.setTransport(Transport.valueOf(transport));
+        super.setStep("house");
+    }
 
-        return flat;
+    private void houseHandler() throws ValidationException {
+        HouseForm houseForm = new HouseForm(consoleManager);
+        this.flat.setHouse(houseForm.run());
+        super.clearStep();
     }
 
 }

@@ -1,10 +1,16 @@
 package manager;
-import java.util.TreeSet;
 
+import java.util.TreeSet;
+import java.util.Date;
 import models.Flat;
 
 public class CollectionManager {
     private TreeSet<Flat> collection = new TreeSet<>();
+    private java.util.Date creationDate;
+
+    public CollectionManager() {
+        this.creationDate = new Date();
+    }
 
     public boolean add(Flat element) {
         return collection.add(element);
@@ -18,5 +24,14 @@ public class CollectionManager {
         return collection;
     }
 
-}
+    public Integer size() {
+        return this.collection.size();
+    }
 
+    @Override
+    public String toString() {
+        return String.format("Тип коллекции: %s, Дата создания: %s, Кол-во элементов: %s",
+                this.collection.getClass().getSimpleName(), this.creationDate, this.collection.size());
+    }
+
+}

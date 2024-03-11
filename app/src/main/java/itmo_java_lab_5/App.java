@@ -3,7 +3,11 @@
  */
 package itmo_java_lab_5;
 
-import commands.Add;
+import commands.complex_args_commands.Add;
+import commands.no_args_commands.Help;
+import commands.no_args_commands.History;
+import commands.no_args_commands.Info;
+import commands.no_args_commands.Show;
 import manager.CollectionManager;
 import manager.CommandManager;
 import manager.ConsoleManager;
@@ -17,8 +21,17 @@ public class App {
         CollectionManager collectionManager = new CollectionManager();
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager(commandManager);
-        Add addCommand = new Add("add", "Добавление элемента", consoleManager, collectionManager);
-        commandManager.register("add", addCommand);
+        Add addCommand = new Add(consoleManager, collectionManager);
+        commandManager.register(addCommand);
+        History historyCommand = new History(consoleManager, collectionManager);
+        commandManager.register(historyCommand);
+        Help helpCommand = new Help(consoleManager, collectionManager);
+        commandManager.register(helpCommand);
+        Info infoCommand = new Info(consoleManager, collectionManager);
+        commandManager.register(infoCommand);
+        Show showCommand = new Show(consoleManager, collectionManager);
+        commandManager.register(showCommand);
+
         consoleManager.run();
     }
 }

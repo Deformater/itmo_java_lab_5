@@ -1,18 +1,17 @@
 package models;
 
-import java.util.Date;
-
 import exceptions.ValidationException;
 import manager.CollectionManager;
+import java.time.ZonedDateTime;
 
-public class Flat {
+public class Flat implements Comparable<Flat> {
     private Integer id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого
                         // поля должно быть уникальным, Значение этого поля должно генерироваться
                         // автоматически
     private String name; // Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; // Поле не может быть null
-    private java.util.Date creationDate; // Поле не может быть null, Значение этого поля должно генерироваться
-                                         // автоматически
+    private ZonedDateTime creationDate; // Поле не может быть null, Значение этого поля должно генерироваться
+                                        // автоматически
     private Long area; // Максимальное значение поля: 570, Значение поля должно быть больше 0
     private int numberOfRooms; // Значение поля должно быть больше 0
     private Integer height; // Поле не может быть null, Значение поля должно быть больше 0
@@ -22,25 +21,31 @@ public class Flat {
     private House house; // Поле может быть null
 
     public Flat() {
+        ZonedDateTime createdAt = ZonedDateTime.now();
+        this.setCreationDate(createdAt);
     }
 
     public Flat(CollectionManager collectionManager, Integer id, String name, Coordinates coordinates, Long area,
             int numberOfRooms, Integer height, Furnish furnish, Transport transport, House house)
             throws ValidationException {
-        setId(generateId(collectionManager));
-        setName(name);
-        setCoordinates(coordinates);
-        Date createdAt = new Date();
-        setCreationDate(createdAt);
-        setArea(area);
-        setNumberOfRooms(numberOfRooms);
-        setHeight(height);
-        setFurnish(furnish);
-        setTransport(transport);
-        setHouse(house);
+        this();
+        this.setGenId(collectionManager);
+        this.setName(name);
+        this.setCoordinates(coordinates);
+        this.setArea(area);
+        this.setNumberOfRooms(numberOfRooms);
+        this.setHeight(height);
+        this.setFurnish(furnish);
+        this.setTransport(transport);
+        this.setHouse(house);
     }
 
-    public Integer generateId(CollectionManager collectionManager) {
+    @Override
+    public int compareTo(Flat other) {
+        return this.area.compareTo(other.area);
+    }
+
+    public static Integer generateId(CollectionManager collectionManager) {
         Integer id = 1;
         for (Flat flat : collectionManager.getCollection()) {
             if (flat.getId() >= id) {
@@ -50,10 +55,26 @@ public class Flat {
         return id;
     }
 
-    private void setId(Integer id) throws ValidationException {
+    public void setGenId(CollectionManager collectionManager) {
+        while (true) {
+            try {
+                this.setId(Flat.generateId(collectionManager), collectionManager);
+                break;
+            } catch (ValidationException e) {
+                continue;
+            }
+        }
+    }
+
+    public void setId(Integer id, CollectionManager collectionManager) throws ValidationException {
         if (id <= 0 || id == null) {
             throw new ValidationException("Id should be more than 0");
         }
+
+        if (collectionManager.getCollection().stream().anyMatch(flat -> flat.getId() == id)) {
+            throw new ValidationException("Id should be unique");
+        }
+
         this.id = id;
     }
 
@@ -83,14 +104,14 @@ public class Flat {
         this.coordinates = coordinates;
     }
 
-    public java.util.Date getCreationDate() {
+    public ZonedDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(java.util.Date creationDate) throws ValidationException {
-        if (creationDate == null) {
-            throw new ValidationException("Creation date can't be null");
-        }
+    private void setCreationDate(ZonedDateTime creationDate) {
+        // if (creationDate == null) {
+        // throw new ValidationException("Creation date can't be null");
+        // }
         this.creationDate = creationDate;
     }
 
@@ -181,4 +202,12 @@ public class Flat {
         this.house = house;
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "Имя квартиры: %s\nКоординаты:\n%s\nПлощадь: %d\nКоличество комнат: %d\nВысота: %d\nТип мебели: %s\nТип транспорта: %s\nДом:\n%s",
+                this.getName(), this.getCoordinates(), this.getArea(), this.getNumberOfRooms(), this.getHeight(),
+                this.getFurnish(),
+                this.getTransport(), this.getHouse());
+    }
 }

@@ -15,7 +15,6 @@ public class ConsoleManager {
                 break;
             }
             commandManager.executeCommand(command);
-            print("Вы ввели: " + command);
         }
     }
 

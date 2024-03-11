@@ -3,38 +3,37 @@ package models;
 import exceptions.ValidationException;
 
 public class Coordinates {
-    private double x; // Максимальное значение поля: 591
-    private Integer y; // Поле не может быть null
+    private Integer x; // Максимальное значение поля: 591, Поле не может быть null
+    private long y;
 
     public Coordinates() {
     }
 
-    public Coordinates(double x, Integer y) throws ValidationException{
-        setX(x);
-        setY(y);
+    public Coordinates(Integer xInteger, long yLong) throws ValidationException {
+        this.setX(xInteger);
+        this.setY(yLong);
     }
 
-    public void setX(double x2) throws ValidationException {
-        if (x2 > 591 || x2 < -591) {
+    public void setX(Integer xInteger) throws ValidationException {
+        if (xInteger == null) {
+            throw new ValidationException("X can't be null");
+        }
+        if (xInteger > 591 || xInteger < -591) {
             throw new ValidationException("X should be less than 591");
         }
-        this.x = x2;
+        this.x = xInteger;
     }
 
     public void setX(String xString) throws ValidationException {
         try {
-            double x = Double.parseDouble(xString);
-            setX(x);
+            this.setX(Integer.parseInt(xString));
         } catch (NumberFormatException e) {
             throw new ValidationException("X should be a number");
         }
     }
 
-    public void setY(Integer y) throws ValidationException {
-        if (y == null) {
-            throw new ValidationException("Y can't be null");
-        }
-        this.y = y;
+    public void setY(long yLong) throws ValidationException {
+        this.y = yLong;
     }
 
     public void setY(String yString) throws ValidationException {
@@ -44,6 +43,19 @@ public class Coordinates {
         } catch (NumberFormatException e) {
             throw new ValidationException("Y should be a number");
         }
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public long getY() {
+        return y;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("\tx: %d\n\ty: %d", this.getX(), this.getY());
     }
 
 }
