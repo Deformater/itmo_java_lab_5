@@ -11,6 +11,7 @@ import commands.no_args_commands.History;
 import commands.no_args_commands.Info;
 import commands.no_args_commands.Save;
 import commands.no_args_commands.Show;
+import commands.simple_args_commands.ExecuteScript;
 import commands.simple_args_commands.RemoveById;
 import manager.CollectionManager;
 import manager.CommandManager;
@@ -43,6 +44,8 @@ public class App {
         commandManager.register(clearCommand);
         Save saveCommand = new Save(consoleManager, collectionManager);
         commandManager.register(saveCommand);
+        ExecuteScript executeScriptCommand = new ExecuteScript(consoleManager, collectionManager);
+        commandManager.register(executeScriptCommand);
 
         consoleManager.run();
     }

@@ -24,9 +24,10 @@ public class CommandManager {
         return history.subList(Integer.max(history.size() - 13, 0), history.size());
     }
 
-    public void executeCommand(String commandName, String... args) throws CommandNotFoundError {
+    public void executeCommand(String commandName, boolean fromScript, String... args) throws CommandNotFoundError {
         if (commands.containsKey(commandName)) {
             Command command = commands.get(commandName);
+            command.setFromScript(fromScript);
             command.execute(args);
             this.addToHistory(command);
         } else {

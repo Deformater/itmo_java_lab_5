@@ -19,16 +19,15 @@ public class Save extends Command {
     }
 
     public void execute(String... args) {
-    
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Settings.saveFilePath))) {
             String comma = "";
             writer.write("[");
             for (Flat flat : this.collectionManager.getCollection()) {
-                writer.write(comma + FlatSerializer.jsonDumps(flat));
-                writer.newLine();
+                writer.write(comma + "\n" + FlatSerializer.jsonDumps(flat));
                 comma = ",";
             }
+            writer.newLine();
             writer.write("]");
             this.consoleManager.print("Коллекция сохранена в файл " + Settings.saveFilePath);
         } catch (IOException e) {

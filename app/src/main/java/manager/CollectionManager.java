@@ -2,8 +2,6 @@ package manager;
 
 import java.util.TreeSet;
 
-import com.google.gson.Gson;
-
 import java.util.Date;
 import models.Flat;
 import serializers.FlatSerializer;
@@ -23,7 +21,11 @@ public class CollectionManager {
     }
 
     private void loadCollection(String path) {
-        File file = new File(path); // Replace with your file's path
+        File file = new File(path);
+        if (file.getTotalSpace() == 0) {
+            System.err.println("Файл пуст");
+            System.exit(1);
+        }
 
         try (Scanner scanner = new Scanner(file)) {
             String line = scanner.nextLine();
@@ -39,7 +41,7 @@ public class CollectionManager {
         } catch (FileNotFoundException e) {
             return;
         } catch (Exception e) {
-            System.err.println("Неправильный формат файла" + e.getMessage());
+            System.err.println("Неправильный формат файла");
         }
 
     }
