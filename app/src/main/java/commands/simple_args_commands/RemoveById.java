@@ -1,18 +1,14 @@
-package commands.complex_args_commands;
+package commands.simple_args_commands;
 
 import commands.Command;
-import forms.FlatForm;
 import manager.CollectionManager;
 import manager.ConsoleManager;
-import models.Flat;
 
-public class Update extends Command {
-    private FlatForm form;
+public class RemoveById extends Command {
 
-    public Update(ConsoleManager consoleManager, CollectionManager collectionManager) {
-        super("update", "Изменяет квартиру в колекции, запускает форму изменения данных Квартиры\n\tпринимает аргумент типа Integer id",
+    public RemoveById(ConsoleManager consoleManager, CollectionManager collectionManager) {
+        super("remove_by_id", "Удаляет квартиру из колекции\n\tпринимает аргумент типа Integer id",
                 consoleManager, collectionManager);
-        this.form = new FlatForm(consoleManager);
     }
 
     public void execute(String... args) {
@@ -28,13 +24,11 @@ public class Update extends Command {
             return;
         }
 
-        Flat flat = this.collectionManager.get(id);
-        if (flat == null) {
+        if (this.collectionManager.remove(id)) {
+            this.consoleManager.print("Элемент с id " + id + " удален");
+        } else {
             this.consoleManager.printError("Элемента с таким id нет в коллекции");
-            return;
         }
 
-        this.form.update(flat);
-        this.consoleManager.print("Квартира с id " + id + " изменена");
     }
 }

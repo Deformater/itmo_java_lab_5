@@ -28,7 +28,7 @@ public class HouseForm extends Form<House> {
     }
 
     @Override
-    public House run() {
+    public House create() {
         this.house = new House();
         super.runHandler(this);
         return house;

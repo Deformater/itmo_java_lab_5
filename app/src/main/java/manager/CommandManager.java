@@ -1,6 +1,7 @@
 package manager;
 
 import commands.Command;
+import exceptions.CommandNotFoundError;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,13 +24,13 @@ public class CommandManager {
         return history.subList(Integer.max(history.size() - 13, 0), history.size());
     }
 
-    public void executeCommand(String commandName, String... args) {
+    public void executeCommand(String commandName, String... args) throws CommandNotFoundError {
         if (commands.containsKey(commandName)) {
             Command command = commands.get(commandName);
-            command.execute();
+            command.execute(args);
             this.addToHistory(command);
         } else {
-            System.out.println("Команда не найдена");
+            throw new CommandNotFoundError("Команда не найдена");
         }
     }
 

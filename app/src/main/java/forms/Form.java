@@ -16,7 +16,7 @@ public abstract class Form<T> {
         this.step = step;
     }
 
-    public abstract T run();
+    public abstract T create();
 
     protected void runHandler(@SuppressWarnings("rawtypes") Form form) {
         while (true) {

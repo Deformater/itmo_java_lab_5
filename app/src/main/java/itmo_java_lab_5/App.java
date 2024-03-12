@@ -4,10 +4,12 @@
 package itmo_java_lab_5;
 
 import commands.complex_args_commands.Add;
+import commands.complex_args_commands.Update;
 import commands.no_args_commands.Help;
 import commands.no_args_commands.History;
 import commands.no_args_commands.Info;
 import commands.no_args_commands.Show;
+import commands.simple_args_commands.RemoveById;
 import manager.CollectionManager;
 import manager.CommandManager;
 import manager.ConsoleManager;
@@ -31,6 +33,10 @@ public class App {
         commandManager.register(infoCommand);
         Show showCommand = new Show(consoleManager, collectionManager);
         commandManager.register(showCommand);
+        Update updateCommand = new Update(consoleManager, collectionManager);
+        commandManager.register(updateCommand);
+        RemoveById removeByIdCommand = new RemoveById(consoleManager, collectionManager);
+        commandManager.register(removeByIdCommand);
 
         consoleManager.run();
     }

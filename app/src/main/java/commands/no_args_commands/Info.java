@@ -10,7 +10,7 @@ public class Info extends Command {
         super("info", "Выводит информацию о коллекции", consoleManager, collectionManager);
     }
 
-    public void execute() {
+    public void execute(String... args)  {
         this.consoleManager.print("Информация о коллекции:");
         this.consoleManager.print(this.collectionManager);
     }

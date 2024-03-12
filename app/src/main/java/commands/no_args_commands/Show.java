@@ -10,7 +10,7 @@ public class Show extends Command {
         super("show", "Выводит список элементов коллекции", consoleManager, collectionManager);
     }
 
-    public void execute() {
+    public void execute(String... args)  {
         if (this.collectionManager.size() > 0){
             this.consoleManager.print("Элементы коллекции:");
             this.collectionManager.getCollection().forEach(el -> this.consoleManager.print(el));

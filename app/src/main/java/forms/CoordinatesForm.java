@@ -30,7 +30,7 @@ public class CoordinatesForm extends Form<Coordinates> {
     }
 
     @Override
-    public Coordinates run() {
+    public Coordinates create() {
         this.coordinates = new Coordinates();
         super.runHandler(this);
         return coordinates;

@@ -205,8 +205,9 @@ public class Flat implements Comparable<Flat> {
     @Override
     public String toString() {
         return String.format(
-                "Имя квартиры: %s\nКоординаты:\n%s\nПлощадь: %d\nКоличество комнат: %d\nВысота: %d\nТип мебели: %s\nТип транспорта: %s\nДом:\n%s",
-                this.getName(), this.getCoordinates(), this.getArea(), this.getNumberOfRooms(), this.getHeight(),
+                "ID: %s\nИмя квартиры: %s\nКоординаты:\n%s\nПлощадь: %d\nКоличество комнат: %d\nВысота: %d\nТип мебели: %s\nТип транспорта: %s\nДом:\n%s",
+                this.getId(), this.getName(), this.getCoordinates(), this.getArea(), this.getNumberOfRooms(),
+                this.getHeight(),
                 this.getFurnish(),
                 this.getTransport(), this.getHouse());
     }

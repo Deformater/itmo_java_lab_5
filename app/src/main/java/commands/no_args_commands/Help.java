@@ -10,7 +10,7 @@ public class Help extends Command {
         super("help", "Выводит это текст", consoleManager, collectionManager);
     }
 
-    public void execute() {
+    public void execute(String... args)  {
         this.consoleManager.print("Справка по командам:");
         this.consoleManager.getCommandManager().getCommands().values()
                 .forEach(command -> this.consoleManager

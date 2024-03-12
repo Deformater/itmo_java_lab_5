@@ -12,6 +12,15 @@ public class CollectionManager {
         this.creationDate = new Date();
     }
 
+    public Flat get(int id) {
+        for (Flat flat : collection) {
+            if (flat.getId() == id) {
+                return flat;
+            }
+        }
+        return null;
+    }
+
     public boolean add(Flat element) {
         return collection.add(element);
     }

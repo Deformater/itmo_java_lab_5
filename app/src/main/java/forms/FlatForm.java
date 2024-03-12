@@ -31,7 +31,7 @@ public class FlatForm extends Form<Flat> {
         }
     };
 
-    Flat flat;
+    public Flat flat;
 
     public FlatForm(ConsoleManager consoleManager) {
         super(consoleManager, "name");
@@ -39,8 +39,14 @@ public class FlatForm extends Form<Flat> {
     }
 
     @Override
-    public Flat run() {
+    public Flat create() {
         this.flat = new Flat();
+        super.runHandler(this);
+        return this.flat;
+    }
+
+    public Flat update(Flat flat) {
+        this.flat = flat;
         super.runHandler(this);
         return this.flat;
     }
@@ -55,7 +61,7 @@ public class FlatForm extends Form<Flat> {
     private void coordsHandler() throws ValidationException {
         this.consoleManager.print("Координаты (x, y):");
         CoordinatesForm coordinatesForm = new CoordinatesForm(consoleManager);
-        Coordinates coordinates = coordinatesForm.run();
+        Coordinates coordinates = coordinatesForm.create();
         this.flat.setCoordinates(coordinates);
         super.setStep("area");
     }
@@ -97,7 +103,7 @@ public class FlatForm extends Form<Flat> {
 
     private void houseHandler() throws ValidationException {
         HouseForm houseForm = new HouseForm(consoleManager);
-        this.flat.setHouse(houseForm.run());
+        this.flat.setHouse(houseForm.create());
         super.clearStep();
     }
 

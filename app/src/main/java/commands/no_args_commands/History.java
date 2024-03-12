@@ -10,7 +10,7 @@ public class History extends Command {
         super("history", "Выводит историю последних 13 комманд", consoleManager, collectionManager);
     }
 
-    public void execute() {
+    public void execute(String... args)  {
         this.consoleManager.print("История команд:");
         this.consoleManager.getCommandManager().getHistory()
                 .forEach(command -> this.consoleManager.print(command.getName()));
