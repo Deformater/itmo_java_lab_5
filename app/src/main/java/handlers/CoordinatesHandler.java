@@ -1,4 +1,4 @@
-package forms;
+package handlers;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -10,21 +10,21 @@ import manager.ConsoleManager;
 import models.Coordinates;
 
 @SuppressWarnings("unused")
-public class CoordinatesForm extends Form<Coordinates> {
+public class CoordinatesHandler extends Handler<Coordinates> {
     Coordinates coordinates;
 
     HashMap<String, Method> handlers = new HashMap<>() {
         {
             try {
-                put("x", CoordinatesForm.class.getDeclaredMethod("xCoordHandler"));
-                put("y", CoordinatesForm.class.getDeclaredMethod("yCoordHandler"));
+                put("x", CoordinatesHandler.class.getDeclaredMethod("xCoordHandler"));
+                put("y", CoordinatesHandler.class.getDeclaredMethod("yCoordHandler"));
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
     };
 
-    public CoordinatesForm(ConsoleManager consoleManager) {
+    public CoordinatesHandler(ConsoleManager consoleManager) {
         super(consoleManager, "x");
         super.handlers = this.handlers;
     }

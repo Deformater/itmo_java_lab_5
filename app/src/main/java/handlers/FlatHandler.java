@@ -1,4 +1,4 @@
-package forms;
+package handlers;
 
 import exceptions.ValidationException;
 import manager.ConsoleManager;
@@ -12,19 +12,19 @@ import java.util.HashMap;
 import java.lang.reflect.Method;
 
 @SuppressWarnings("unused")
-public class FlatForm extends Form<Flat> {
+public class FlatHandler extends Handler<Flat> {
 
     HashMap<String, Method> handlers = new HashMap<>() {
         {
             try {
-                put("name", FlatForm.class.getDeclaredMethod("nameHandler"));
-                put("coords", FlatForm.class.getDeclaredMethod("coordsHandler"));
-                put("area", FlatForm.class.getDeclaredMethod("areaHandler"));
-                put("numberOfRooms", FlatForm.class.getDeclaredMethod("numberOfRoomsHandler"));
-                put("height", FlatForm.class.getDeclaredMethod("heightHandler"));
-                put("furnish", FlatForm.class.getDeclaredMethod("furnishHandler"));
-                put("transport", FlatForm.class.getDeclaredMethod("transportHandler"));
-                put("house", FlatForm.class.getDeclaredMethod("houseHandler"));
+                put("name", FlatHandler.class.getDeclaredMethod("nameHandler"));
+                put("coords", FlatHandler.class.getDeclaredMethod("coordsHandler"));
+                put("area", FlatHandler.class.getDeclaredMethod("areaHandler"));
+                put("numberOfRooms", FlatHandler.class.getDeclaredMethod("numberOfRoomsHandler"));
+                put("height", FlatHandler.class.getDeclaredMethod("heightHandler"));
+                put("furnish", FlatHandler.class.getDeclaredMethod("furnishHandler"));
+                put("transport", FlatHandler.class.getDeclaredMethod("transportHandler"));
+                put("house", FlatHandler.class.getDeclaredMethod("houseHandler"));
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
@@ -33,7 +33,7 @@ public class FlatForm extends Form<Flat> {
 
     public Flat flat;
 
-    public FlatForm(ConsoleManager consoleManager) {
+    public FlatHandler(ConsoleManager consoleManager) {
         super(consoleManager, "name");
         super.handlers = this.handlers;
     }
@@ -60,7 +60,7 @@ public class FlatForm extends Form<Flat> {
 
     private void coordsHandler() throws ValidationException {
         this.consoleManager.print("Координаты (x, y):");
-        CoordinatesForm coordinatesForm = new CoordinatesForm(consoleManager);
+        CoordinatesHandler coordinatesForm = new CoordinatesHandler(consoleManager);
         Coordinates coordinates = coordinatesForm.create();
         this.flat.setCoordinates(coordinates);
         super.setStep("area");
@@ -102,7 +102,7 @@ public class FlatForm extends Form<Flat> {
     }
 
     private void houseHandler() throws ValidationException {
-        HouseForm houseForm = new HouseForm(consoleManager);
+        HouseHandler houseForm = new HouseHandler(consoleManager);
         this.flat.setHouse(houseForm.create());
         super.clearStep();
     }

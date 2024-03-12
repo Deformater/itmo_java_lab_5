@@ -22,9 +22,9 @@ public class App {
     }
 
     public static void main(String[] args) {
-        CollectionManager collectionManager = new CollectionManager();
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager(commandManager);
+        CollectionManager collectionManager = new CollectionManager();
         Add addCommand = new Add(consoleManager, collectionManager);
         commandManager.register(addCommand);
         History historyCommand = new History(consoleManager, collectionManager);

@@ -4,13 +4,13 @@ import manager.CollectionManager;
 import manager.ConsoleManager;
 import models.Flat;
 import serializers.FlatSerializer;
+import utils.Settings;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import commands.Command;
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class Save extends Command {
     public Save(ConsoleManager consoleManager, CollectionManager collectionManager) {
@@ -19,10 +19,9 @@ public class Save extends Command {
     }
 
     public void execute(String... args) {
-        Dotenv dotenv = Dotenv.load();
-        String filePath = dotenv.get("SAVE_FILE_PATH");
+    
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Settings.saveFilePath))) {
             String comma = "";
             writer.write("[");
             for (Flat flat : this.collectionManager.getCollection()) {
@@ -31,7 +30,7 @@ public class Save extends Command {
                 comma = ",";
             }
             writer.write("]");
-            this.consoleManager.print("Коллекция сохранена в файл " + filePath);
+            this.consoleManager.print("Коллекция сохранена в файл " + Settings.saveFilePath);
         } catch (IOException e) {
             this.consoleManager.printError(e.getMessage());
         }

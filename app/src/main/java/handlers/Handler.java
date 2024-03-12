@@ -1,4 +1,4 @@
-package forms;
+package handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -6,13 +6,13 @@ import java.util.Map;
 
 import manager.ConsoleManager;
 
-public abstract class Form<T> {
+public abstract class Handler<T> {
     protected ConsoleManager consoleManager;
     private String step;
     private String startStep;
     protected Map<String, Method> handlers;
 
-    public Form(ConsoleManager consoleManager, String startStep) {
+    public Handler(ConsoleManager consoleManager, String startStep) {
         this.consoleManager = consoleManager;
         this.startStep = startStep;
         this.step = startStep;
@@ -20,7 +20,7 @@ public abstract class Form<T> {
 
     public abstract T create();
 
-    protected void runHandler(@SuppressWarnings("rawtypes") Form form) {
+    protected void runHandler(@SuppressWarnings("rawtypes") Handler form) {
         this.step = this.startStep;
         while (true) {
             Method handler = this.currentStepHandler();

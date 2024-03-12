@@ -1,18 +1,18 @@
 package commands.complex_args_commands;
 
 import commands.Command;
-import forms.FlatForm;
+import handlers.FlatHandler;
 import manager.CollectionManager;
 import manager.ConsoleManager;
 import models.Flat;
 
 public class Update extends Command {
-    private FlatForm form;
+    private FlatHandler handler;
 
     public Update(ConsoleManager consoleManager, CollectionManager collectionManager) {
         super("update", "Изменяет квартиру в колекции, запускает форму изменения данных Квартиры\n\tпринимает аргумент типа Integer id",
                 consoleManager, collectionManager);
-        this.form = new FlatForm(consoleManager);
+        this.handler = new FlatHandler(consoleManager);
     }
 
     public void execute(String... args) {
@@ -34,7 +34,7 @@ public class Update extends Command {
             return;
         }
 
-        this.form.update(flat);
+        this.handler.update(flat);
         this.consoleManager.print("Квартира с id " + id + " изменена");
     }
 }

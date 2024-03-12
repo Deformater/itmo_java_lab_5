@@ -1,4 +1,4 @@
-package forms;
+package handlers;
 
 import exceptions.ValidationException;
 import manager.ConsoleManager;
@@ -8,21 +8,21 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
-public class HouseForm extends Form<House> {
+public class HouseHandler extends Handler<House> {
     House house;
     HashMap<String, Method> handlers = new HashMap<>() {
         {
             try {
-                put("name", HouseForm.class.getDeclaredMethod("nameHandler"));
-                put("year", HouseForm.class.getDeclaredMethod("yearHandler"));
-                put("numberOfFlatsOnFloor", HouseForm.class.getDeclaredMethod("numberOfFlatsOnFloorHandler"));
+                put("name", HouseHandler.class.getDeclaredMethod("nameHandler"));
+                put("year", HouseHandler.class.getDeclaredMethod("yearHandler"));
+                put("numberOfFlatsOnFloor", HouseHandler.class.getDeclaredMethod("numberOfFlatsOnFloorHandler"));
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
     };
 
-    public HouseForm(ConsoleManager consoleManager) {
+    public HouseHandler(ConsoleManager consoleManager) {
         super(consoleManager, "name");
         super.handlers = this.handlers;
     }
