@@ -29,6 +29,10 @@ public class CollectionManager {
         return collection.removeIf(flat -> flat.getId() == id);
     }
 
+    public void clear() {
+        collection.clear();
+    }
+
     public TreeSet<Flat> getCollection() {
         return collection;
     }

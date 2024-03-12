@@ -5,6 +5,7 @@ package itmo_java_lab_5;
 
 import commands.complex_args_commands.Add;
 import commands.complex_args_commands.Update;
+import commands.no_args_commands.Clear;
 import commands.no_args_commands.Help;
 import commands.no_args_commands.History;
 import commands.no_args_commands.Info;
@@ -37,6 +38,8 @@ public class App {
         commandManager.register(updateCommand);
         RemoveById removeByIdCommand = new RemoveById(consoleManager, collectionManager);
         commandManager.register(removeByIdCommand);
+        Clear clearCommand = new Clear(consoleManager, collectionManager);
+        commandManager.register(clearCommand);
 
         consoleManager.run();
     }
