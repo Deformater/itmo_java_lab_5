@@ -9,6 +9,7 @@ import commands.no_args_commands.Clear;
 import commands.no_args_commands.Help;
 import commands.no_args_commands.History;
 import commands.no_args_commands.Info;
+import commands.no_args_commands.Save;
 import commands.no_args_commands.Show;
 import commands.simple_args_commands.RemoveById;
 import manager.CollectionManager;
@@ -40,6 +41,8 @@ public class App {
         commandManager.register(removeByIdCommand);
         Clear clearCommand = new Clear(consoleManager, collectionManager);
         commandManager.register(clearCommand);
+        Save saveCommand = new Save(consoleManager, collectionManager);
+        commandManager.register(saveCommand);
 
         consoleManager.run();
     }

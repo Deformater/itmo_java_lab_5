@@ -1,0 +1,3 @@
+[
+{"id":1,"name":"asdb","coordinates":{"x":4,"y":3},"creationDate":"2024-03-12T23:57:02.577366115+03:00[Europe/Moscow]","area":34,"numberOfRooms":5,"height":345,"furnish":"DESIGNER","transport":"NORMAL","house":{"name":"sdf","year":34353,"numberOfFlatsOnFloor":5}},
+{"id":2,"name":"aber","coordinates":{"x":5,"y":4},"creationDate":"2024-03-12T23:57:36.526421862+03:00[Europe/Moscow]","area":45,"numberOfRooms":3,"height":34,"furnish":"DESIGNER","transport":"NORMAL","house":{"name":"vasdf","year":3453,"numberOfFlatsOnFloor":5}}]

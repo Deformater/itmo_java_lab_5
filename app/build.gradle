@@ -23,7 +23,9 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
-    implementation 'com.google.googlejavaformat:google-java-format:1.21.0'
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 }
 
 application {

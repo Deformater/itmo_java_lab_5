@@ -8,17 +8,20 @@ import manager.ConsoleManager;
 
 public abstract class Form<T> {
     protected ConsoleManager consoleManager;
-    protected String step;
+    private String step;
+    private String startStep;
     protected Map<String, Method> handlers;
 
-    public Form(ConsoleManager consoleManager, String step) {
+    public Form(ConsoleManager consoleManager, String startStep) {
         this.consoleManager = consoleManager;
-        this.step = step;
+        this.startStep = startStep;
+        this.step = startStep;
     }
 
     public abstract T create();
 
     protected void runHandler(@SuppressWarnings("rawtypes") Form form) {
+        this.step = this.startStep;
         while (true) {
             Method handler = this.currentStepHandler();
             if (handler == null) {
