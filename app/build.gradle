@@ -11,6 +11,24 @@ plugins {
     id 'application'
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'itmo_java_lab_5.App'
+    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'itmo_java_lab_5.App'
+    }
+    archiveBaseName = 'all-in-one-jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
