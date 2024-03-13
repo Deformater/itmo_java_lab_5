@@ -4,11 +4,17 @@
 package itmo_java_lab_5;
 
 import commands.complex_args_commands.Add;
+import commands.complex_args_commands.AddIfMin;
+import commands.complex_args_commands.FilterLessThenHouse;
+import commands.complex_args_commands.RemoveLower;
 import commands.complex_args_commands.Update;
 import commands.no_args_commands.Clear;
+import commands.no_args_commands.Exit;
 import commands.no_args_commands.Help;
 import commands.no_args_commands.History;
 import commands.no_args_commands.Info;
+import commands.no_args_commands.MaxByArea;
+import commands.no_args_commands.PrintFieldDescendingHouse;
 import commands.no_args_commands.Save;
 import commands.no_args_commands.Show;
 import commands.simple_args_commands.ExecuteScript;
@@ -46,6 +52,19 @@ public class App {
         commandManager.register(saveCommand);
         ExecuteScript executeScriptCommand = new ExecuteScript(consoleManager, collectionManager);
         commandManager.register(executeScriptCommand);
+        AddIfMin addIfMinCommand = new AddIfMin(consoleManager, collectionManager);
+        commandManager.register(addIfMinCommand);
+        RemoveLower removeLowerCommand = new RemoveLower(consoleManager, collectionManager);
+        commandManager.register(removeLowerCommand);
+        FilterLessThenHouse filterLessThenHouseCommand = new FilterLessThenHouse(consoleManager, collectionManager);
+        commandManager.register(filterLessThenHouseCommand);
+        MaxByArea maxByAreaCommand = new MaxByArea(consoleManager, collectionManager);
+        commandManager.register(maxByAreaCommand);
+        PrintFieldDescendingHouse printFieldDescendingHouseCommand = new PrintFieldDescendingHouse(consoleManager,
+                collectionManager);
+        commandManager.register(printFieldDescendingHouseCommand);
+        Exit exitCommand = new Exit(consoleManager, collectionManager);
+        commandManager.register(exitCommand);
 
         consoleManager.run();
     }

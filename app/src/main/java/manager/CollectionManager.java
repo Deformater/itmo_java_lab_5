@@ -4,6 +4,7 @@ import java.util.TreeSet;
 
 import java.util.Date;
 import models.Flat;
+import models.House;
 import serializers.FlatSerializer;
 import utils.Settings;
 
@@ -47,7 +48,7 @@ public class CollectionManager {
     }
 
     public Flat get(int id) {
-        for (Flat flat : collection) {
+        for (Flat flat : this.collection) {
             if (flat.getId() == id) {
                 return flat;
             }
@@ -55,24 +56,41 @@ public class CollectionManager {
         return null;
     }
 
+    public Flat getMin() {
+        return collection.first();
+    }
+
     public boolean add(Flat element) {
-        return collection.add(element);
+        return this.collection.add(element);
     }
 
     public boolean remove(int id) {
-        return collection.removeIf(flat -> flat.getId() == id);
+        return this.collection.removeIf(flat -> flat.getId() == id);
     }
 
     public void clear() {
-        collection.clear();
+        this.collection.clear();
     }
 
     public TreeSet<Flat> getCollection() {
-        return collection;
+        return this.collection;
     }
 
     public Integer size() {
         return this.collection.size();
+    }
+
+    public boolean removeLower(Flat flat) {
+        return this.collection.removeIf(flat1 -> flat1.compareTo(flat) < 0);
+    }
+
+    public Flat getMaxByArea() {
+        return this.collection.stream().max(Flat::compareTo).get();
+    }
+
+    public TreeSet<Flat> filterLessThenHouse(House house) {
+        return this.collection.stream().filter(flat -> flat.getHouse().compareTo(house) < 0).collect(TreeSet::new,
+                TreeSet::add, TreeSet::addAll);
     }
 
     @Override

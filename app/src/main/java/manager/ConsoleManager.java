@@ -21,9 +21,6 @@ public class ConsoleManager {
         this.print("Введите команду: ");
         while (true) {
             String input = this.read();
-            if (input.equals("exit")) {
-                break;
-            }
             String[] inputArray = input.split(" ");
             String commandName = inputArray[0];
             String[] args = new String[inputArray.length - 1];

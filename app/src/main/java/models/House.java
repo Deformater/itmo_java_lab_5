@@ -2,7 +2,7 @@ package models;
 
 import exceptions.ValidationException;
 
-public class House {
+public class House implements Comparable<House> {
     private String name; // Поле не может быть null
     private Integer year; // Значение поля должно быть больше 0
     private long numberOfFlatsOnFloor; // Значение поля должно быть больше 0
@@ -68,8 +68,14 @@ public class House {
     }
 
     @Override
+    public int compareTo(House house) {
+        return this.getYear() - house.getYear();
+    }
+
+    @Override
     public String toString() {
-        return String.format("\tИмя: %s\n\tГод постройки: %d\n\tКол-во квартир на этаже: %d", this.getName(), this.getYear(),
+        return String.format("\tИмя: %s\n\tГод постройки: %d\n\tКол-во квартир на этаже: %d", this.getName(),
+                this.getYear(),
                 this.getNumberOfFlatsOnFloor());
     }
 }
