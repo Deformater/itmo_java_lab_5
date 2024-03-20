@@ -14,14 +14,14 @@ plugins {
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes 'Main-Class': 'itmo_java_lab_5.App'
+        attributes 'Main-Class': 'org.itmo.App'
     }
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'itmo_java_lab_5.App'
+        attributes 'Main-Class': 'org.itmo.App'
     }
     archiveBaseName = 'all-in-one-jar'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -29,17 +29,23 @@ task fatJar(type: Jar) {
     with jar
 }
 
+// task javadocs(type: Javadoc) {
+//     source = sourceSets.main.java.srcDirs
+//     classpath = sourceSets.main.runtimeClasspath
+//     options.encoding = 'UTF-8'
+//     include 'commands/*'
+//     include 'handlers/*'
+//     // include 'app/*'
+
+//     exclude '/R.html', '/R.*.html', '**/index.html'
+// }
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.1-jre'
 
     implementation 'com.google.code.gson:gson:2.8.8'
 
@@ -48,7 +54,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'itmo_java_lab_5.App'
+    mainClass = 'org.itmo.App'
 }
 
 tasks.named('test') {
