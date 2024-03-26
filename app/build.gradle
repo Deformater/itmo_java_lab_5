@@ -8,6 +8,7 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+
     id 'application'
 }
 
@@ -29,16 +30,10 @@ task fatJar(type: Jar) {
     with jar
 }
 
-// task javadocs(type: Javadoc) {
-//     source = sourceSets.main.java.srcDirs
-//     classpath = sourceSets.main.runtimeClasspath
-//     options.encoding = 'UTF-8'
-//     include 'commands/*'
-//     include 'handlers/*'
-//     // include 'app/*'
-
-//     exclude '/R.html', '/R.*.html', '**/index.html'
-// }
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = sourceSets.main.runtimeClasspath
+}
 
 repositories {
     // Use Maven Central for resolving dependencies.

@@ -12,9 +12,20 @@ import org.itmo.models.Furnish;
 import org.itmo.models.House;
 import org.itmo.models.Transport;
 
+/**
+ * The Update class represents a command that updates a flat in the collection.
+ * It launches a form to modify the flat's data.
+ * It accepts an argument of type Integer id.
+ */
 public class Update extends Command {
     private FlatHandler handler;
 
+    /**
+     * Constructs an Update command with the specified console manager and collection manager.
+     *
+     * @param consoleManager   The console manager to use for input/output operations.
+     * @param collectionManager The collection manager to use for accessing the flat collection.
+     */
     public Update(ConsoleManager consoleManager, CollectionManager collectionManager) {
         super("update",
                 "Изменяет квартиру в колекции, запускает форму изменения данных Квартиры\n\tпринимает аргумент типа Integer id",
@@ -22,6 +33,11 @@ public class Update extends Command {
         this.handler = new FlatHandler(consoleManager);
     }
 
+    /**
+     * Executes the Update command with the specified arguments.
+     *
+     * @param args The arguments for the command.
+     */
     public void execute(String... args) {
         if (args.length != 1) {
             this.consoleManager.printError("Команда принимает один аргумент");
@@ -50,6 +66,11 @@ public class Update extends Command {
         this.consoleManager.print("Квартира с id " + id + " изменена");
     }
 
+    /**
+     * Executes the Update command using the data from a file.
+     *
+     * @param flat The flat to be updated.
+     */
     public void execute_from_file(Flat flat) {
         try {
             flat.setName(this.consoleManager.read());

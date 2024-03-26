@@ -12,9 +12,18 @@ import org.itmo.models.Furnish;
 import org.itmo.models.House;
 import org.itmo.models.Transport;
 
+/**
+ * Represents a command that adds a flat to the collection if it is the minimum.
+ */
 public class AddIfMin extends Command {
     private FlatHandler handler;
 
+    /**
+     * Constructs an AddIfMin command with the specified console manager and collection manager.
+     *
+     * @param consoleManager   the console manager to use for input/output
+     * @param collectionManager the collection manager to add the flat to
+     */
     public AddIfMin(ConsoleManager consoleManager, CollectionManager collectionManager) {
         super(
                 "add_if_min",
@@ -24,6 +33,11 @@ public class AddIfMin extends Command {
         this.handler = new FlatHandler(consoleManager);
     }
 
+    /**
+     * Executes the AddIfMin command with the specified arguments.
+     *
+     * @param args the command arguments
+     */
     public void execute(String... args) {
         if (super.fromScript) {
             this.execute_from_file();
@@ -39,6 +53,9 @@ public class AddIfMin extends Command {
         this.consoleManager.print("Квартира добавлена в коллекцию");
     }
 
+    /**
+     * Executes the AddIfMin command when called from a script.
+     */
     public void execute_from_file() {
         Flat flat = new Flat();
         try {

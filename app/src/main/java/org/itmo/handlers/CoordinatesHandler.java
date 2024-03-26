@@ -22,11 +22,22 @@ public class CoordinatesHandler extends Handler<Coordinates> {
         }
     };
 
+    /**
+     * Constructs a new CoordinatesHandler object.
+     *
+     * @param consoleManager the console manager to use for input/output operations
+     */
     public CoordinatesHandler(ConsoleManager consoleManager) {
         super(consoleManager, "x");
         super.handlers = this.handlers;
     }
 
+    /**
+     * Creates a new Coordinates object by collecting user input for x and y
+     * coordinates.
+     *
+     * @return the created Coordinates object
+     */
     @Override
     public Coordinates create() {
         this.coordinates = new Coordinates();
@@ -34,6 +45,11 @@ public class CoordinatesHandler extends Handler<Coordinates> {
         return coordinates;
     }
 
+    /**
+     * Handles the input for the x coordinate.
+     *
+     * @throws ValidationException if the input is invalid
+     */
     private void xCoordHandler() throws ValidationException {
         this.consoleManager.print("Введите координату x:");
         String x = this.consoleManager.read();
@@ -41,11 +57,15 @@ public class CoordinatesHandler extends Handler<Coordinates> {
         super.setStep("y");
     }
 
+    /**
+     * Handles the input for the y coordinate.
+     *
+     * @throws ValidationException if the input is invalid
+     */
     private void yCoordHandler() throws ValidationException {
         this.consoleManager.print("Введите координату y:");
         String y = this.consoleManager.read();
         this.coordinates.setY(y);
         super.clearStep();
     }
-
 }

@@ -11,12 +11,28 @@ import org.itmo.models.Flat;
 import org.itmo.serializers.FlatSerializer;
 import org.itmo.utils.Settings;
 
+/**
+ * The Save class represents a command that saves the collection to a file.
+ * It extends the Command class and implements the execute method.
+ */
 public class Save extends Command {
+
+    /**
+     * Constructs a Save command with the specified console manager and collection manager.
+     *
+     * @param consoleManager   the console manager to use
+     * @param collectionManager the collection manager to use
+     */
     public Save(ConsoleManager consoleManager, CollectionManager collectionManager) {
-        super("save", "Сохраняет коллекцию в файл", consoleManager,
-                collectionManager);
+        super("save", "Сохраняет коллекцию в файл", consoleManager, collectionManager);
     }
 
+    /**
+     * Executes the save command.
+     * Writes the collection to a file in JSON format.
+     *
+     * @param args the command arguments (not used)
+     */
     public void execute(String... args) {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Settings.saveFilePath))) {

@@ -12,9 +12,19 @@ import org.itmo.models.Furnish;
 import org.itmo.models.House;
 import org.itmo.models.Transport;
 
+/**
+ * The RemoveLower class represents a command that removes all elements from the collection
+ * that are lower than the specified element.
+ */
 public class RemoveLower extends Command {
     private FlatHandler handler;
 
+    /**
+     * Constructs a new RemoveLower command with the specified console manager and collection manager.
+     *
+     * @param consoleManager   the console manager to use for input/output
+     * @param collectionManager the collection manager to use for managing the collection
+     */
     public RemoveLower(ConsoleManager consoleManager, CollectionManager collectionManager) {
         super(
                 "remove_lower",
@@ -24,6 +34,11 @@ public class RemoveLower extends Command {
         this.handler = new FlatHandler(consoleManager);
     }
 
+    /**
+     * Executes the RemoveLower command with the specified arguments.
+     *
+     * @param args the command arguments
+     */
     public void execute(String... args) {
         Flat flat;
         if (super.fromScript) {
@@ -35,10 +50,16 @@ public class RemoveLower extends Command {
         if (this.collectionManager.removeLower(flat)) {
             this.consoleManager.print("Квартиры удалены");
         } else {
-            this.consoleManager.print("Квартир меньше задаанной не найдено");
+            this.consoleManager.print("Квартир меньше заданной не найдено");
         }
     }
 
+    /**
+     * Executes the RemoveLower command from a file.
+     *
+     * @return the created Flat object
+     * @throws ScriptExecutionException if an error occurs during script execution
+     */
     public Flat execute_from_file() {
         Flat flat = new Flat();
         try {

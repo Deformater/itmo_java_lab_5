@@ -10,8 +10,17 @@ import org.itmo.manager.ConsoleManager;
 import org.itmo.models.Flat;
 import org.itmo.models.House;
 
+/**
+ * This class represents a command that prints the values of the 'house' field of all elements in descending order.
+ */
 public class PrintFieldDescendingHouse extends Command {
 
+    /**
+     * Constructs a new PrintFieldDescendingHouse command with the specified console manager and collection manager.
+     *
+     * @param consoleManager   the console manager to use for input/output operations
+     * @param collectionManager the collection manager to use for accessing the collection
+     */
     public PrintFieldDescendingHouse(ConsoleManager consoleManager, CollectionManager collectionManager) {
         super(
                 "print_field_descending_house",
@@ -20,6 +29,11 @@ public class PrintFieldDescendingHouse extends Command {
                 collectionManager);
     }
 
+    /**
+     * Executes the PrintFieldDescendingHouse command.
+     *
+     * @param args the command arguments (not used in this command)
+     */
     public void execute(String... args) {
         TreeSet<Flat> filteredSet = this.collectionManager.getCollection().stream()
                 .sorted((f1, f2) -> f2.getHouse().compareTo(f1.getHouse()))
@@ -29,6 +43,12 @@ public class PrintFieldDescendingHouse extends Command {
         filteredSet.forEach(el -> this.consoleManager.print(el.getHouse()));
     }
 
+    /**
+     * Executes the PrintFieldDescendingHouse command from a file.
+     *
+     * @return the House object created from the input values
+     * @throws ScriptExecutionException if an error occurs during script execution
+     */
     public House execute_from_file() {
         House house = new House();
         try {
